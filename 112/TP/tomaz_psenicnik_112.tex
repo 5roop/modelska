@@ -1,0 +1,317 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8x]{inputenc}   % omogoča uporabo slovenskih črk kodiranih v formatu UTF-8
+\usepackage[slovene]{babel}    % naloži, med drugim, slovenske delilne vzorce
+
+\usepackage{subcaption}
+\usepackage[hyphens]{url}
+\usepackage{hyperref}
+
+
+\usepackage[pdftex]{graphicx}
+\usepackage{wrapfig}
+
+\usepackage{amsmath}
+%\renewcommand{\vec}[1]{\boldsymbol{#1}} %naredi vector kot bold zapis
+
+\usepackage{float}
+
+\usepackage{amssymb}
+
+%\documentclass[a4paper, 12pt]{article}
+%\usepackage[slovene]{babel}
+%\usepackage[latin2]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage{makeidx}%za stvarno kazalo
+%\makeindex%naredi stvarno kazalo
+%\usepackage{tikz}% paket za kroge
+
+\title{\textbf{Modelska analiza 1} \\ 12. naloga - Spektralna analiza in filtriranje \\}
+	\author{Študent: Pšeničnik Tomaž}
+	
+	
+
+
+	
+\begin{document}
+
+\pagenumbering{gobble}
+
+	\begin{figure} [h]
+  \centering
+  \includegraphics[width=12 cm]{logo_fmf.png}
+  \maketitle
+\end{figure}
+	
+	
+	
+	\newpage
+	\pagenumbering{arabic}
+	
+	
+	
+\section*{Frekvenčna analiza in frekvenčni spekter}
+
+Imamo podana 2 signala s 512 točkami prikazana na sliki \ref{fig:slika1}. Določiti želimo frekvenčni spekter signalov in preizkusiti različne okenske funkcije.
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.5\textwidth]{DFT1.png}
+    \caption{Zašumljena signala v časovni sliki $t$.} \label{fig:slika1}
+\end{figure}
+
+\noindent Iskanje frekvenčnega spektra si bomo pomagali s pomočjo diskretne Fourierove transformacije, ki je v knjižnici \textit{scipy.fftpack.fft} definirana kot
+\begin{equation}
+F_n = \sum _{j=0} ^{N-1} f_j e^{-2\pi i j n/N}  
+\end{equation}
+in obratna Fourierova transforamcija kot
+\begin{equation}
+f_j = \frac{1}{N} \sum _{n=0} ^{N-1} F_n e^{-2\pi i j n/N}.  
+\end{equation}Fourierjeva transformacija spektralne analize sloni na teoriji, da so vsi kompleksni valovi superpozicija sinusnih valov z raličnimi amplitudami, fazami in frekvencami. Ideja je, da s DFT (diskretno Fourierovo transformacijo) izluščimo te komponente signala (frekvenco, fazo), ki so skriti v zašumljeni časovni domeni.
+
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT2_1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT2_2.png}
+    \end{subfigure}
+    \caption{Signal v frekvenčni domeni s 512 podatki. Levo v logaritemski skali, desno v naravni skali.} \label{fig:slika2}
+\end{figure}
+
+Transformacija signala naših podatkov iz časovnega prostora v frekvenčni prostor je prikazana na slikah \ref{fig:slika2}, kjer smo upoštevali kompleksni modulus ($|z|^{2}; \ \ z \in \mathbb{C} $) in prikazali $|F_n|^{2}$. Iz slike \ref{fig:slika2} v logaritemski skali opazimo, da so po transformaciji podatkov  \textit{val2.dat} (označeni modro), vrhovi ostri. Iz tega sklepamo, da smo zajeli celo število period tega signala ali pa smo zelo blizu periode. Drugače je po DFT transformaciji podatkov \textit{val3.dat} (označeni oranžno), kjer so vrhovi razširjeni. To kaže na to, da podatkov nismo zajeli pri celi periodi, temveč nekje vmes. Očitno je, da modri signal poleg belega šuma sestavljata še dva sinusna signala. Oranžen signal ima poleg šuma še štiri sinusne signale.
+
+Povemo lahko še, da so signali na sliki \ref{fig:slika2} do polovice (do frekvence 0.5 Hz), tisti, ki jih iščemo. Preostali signali na drugi polovici so zrcalna slika signalov na prvi polovici in predstavljajo negativno frekvenco. Problem prikazuje silka \ref{fig:slika3}, kjer je frekvenčna skala zamaknjena in imamo simetrično funkcijo.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT2_3.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT2_4.png}
+    \end{subfigure}
+    \caption{Signal v frekvenčni domeni s 512 podatki pri zamaknjeni frekvenčni skali.} \label{fig:slika3}
+\end{figure}
+
+Sedaj si bomo polgedali, kaj se zgodi s frekvenčnim spektrom, če vzamemo vsak drugi podatek, vsak četrti, vsak osmi in vsak šestnajsti podatek, z drugimi besedami, imamo manjšo frekvenco vzorčenja. Slike \ref{fig:slika4} prikazujejo dogajanje, kjer $\Delta t=2$ pomeni, da smo vzeli vsak drugi podatek in  tako naprej. Kot opazimo, z manjšanjem frekvence vzorčenja določeni signali pričnejo prikazovati napačno vrednost frekvence. Še več, signali navidez potujejo po frekvenčni osi. Pri dovolj majhni frekvenci vzorčenja (primer: na spodnji sliki slik \ref{fig:slika4}) določeni vrhovi izginejo. Za zanimivost bi si lahko pogledali matematično razlago tega pojava, vendar to ni v okviru tega predmeta. Pomembno je torej, da pri analizi signala vzamemo dovolj veliko frekvenco vzorčenja oz. večjo kot 2-kratnik največje vsebovane frekvence.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT3_1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT3_2.png}
+    \end{subfigure}
+    
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT4_1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT4_2.png}
+    \end{subfigure}
+    
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT5_1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT5_2.png}
+    \end{subfigure}
+    
+        \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT6_1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{DFT6_2.png}
+    \end{subfigure}
+    \caption{Signal v frekvenčni domeni z različnim številom podatkom.} \label{fig:slika4}
+\end{figure}
+
+Signal iz na sliki \ref{fig:slika1} lahko izboljšamo z okenskimi funckijami. Okensko funkcijo uporabimo z nameno, da izboljšamo razmerje med signalom in šumom. obstajajo različne okenske funkcije, ni pa pravila, katera je boljša od druge, saj je veliko odvisno od signala in od željenega cilja (širši/ožji vrh). Obravnavane okenske funkcije prikazuje slika \ref{fig:slika5}. Lastnosti okenskih funkcij koristimo tako, da jo pomnožimo s signalom v časovnem prostoru in nato napravimo DFT.
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.7\textwidth]{okenske_funkcije.png}
+    \caption{Okenske funkcije.} \label{fig:slika5}
+\end{figure}
+
+\noindent Vpliv okenskih funkcij je najbolj očiten v logaritemski skali. Vpliv okenski funkcij je prikazan na slikah \ref{fig:slika6} in \ref{fig:slika7}.
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.7\textwidth]{DFT_window1.png}
+    \caption{Vpliv okenskih funkcij za podatke \textit{val3.dat}.} \label{fig:slika6}
+\end{figure}
+
+\noindent Na sliki \ref{fig:slika6} vidimo, da nam najbol izostri vrh black-ovo okno za ceno znižanje le tega. Zniža tudi vmesna zašumljena območja. V tem smislu je izbira okna izboljšala situacijo.
+Drugače je pri sliki \ref{fig:slika7}, kjer z uporabo okna ne odstranimo slabih frekvenc.
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.7\textwidth]{DFT_window2.png}
+    \caption{Vpliv okenskih funkcij za podatke \textit{val2.dat}.} \label{fig:slika7}
+\end{figure}
+
+
+\section*{Wienerjev filter}
+
+S pomočjo Wienerejevega filtra želimo napraviti dekonvolucijo signalov na datotekah \texttt{signal$\left\lbrace \right.$0,1,2,3$ \left. \right\rbrace$.dat}. Število točk v posameznem signalu je 512. Na zadnjih treh datotekaj je signalu primešan šum. Prenosna funkcija je:
+\begin{equation}
+r(t)=\frac{1}{2\tau}e^{-|t|/\tau}, \qquad \tau=16.
+\end{equation}
+Signal $u(t)$, ki prihaja v merilno napravo s prenosno funkcijo $r(t)$, se ob dodatku šuma $n(t)$ preoblikuje v:
+\begin{equation}
+c(t)=u(t) * r(t) + n(t)=s(t) + n(t).
+\end{equation}
+Iz izmerjenega časovnega poteka $c(t)$ in ob pozavanju prenosne funkcije $r(t)$, bi radi rekonstruirali vpadni signal $u(t)$. ob predpostavki, da imamo opravka z naključnim šumom, si pri tem pomagamo z Wienerjevo metodo, kjer pred dekonvolucijo transformiranko $C(f)$ pomnožimo s filtrom oblike
+\begin{equation} \label{eq:wiener_factor}
+\Phi (f) = \frac{|S{f}|^{2}}{|S{f}|^{2} + |N(f)|^{2}}= \frac{|C(f)|^{2} - |N(f)|^{2}}{|C(f)|^{2}},
+\end{equation}
+kjer so $C(f)$, $N(f)$ in $S(f)$ transformiranke $c(t)$, $n(t)$ in $s(t)$.
+
+Za začetek si oglejmo podane signale, prikazane na sliki \ref{fig:slika8}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{wiener1_brez_suma.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{wiener1_sum.png}
+    \end{subfigure}
+    \caption{Levo signal brez šuma in desno signali s šumom.} \label{fig:slika8}
+\end{figure}
+
+\noindent Prvi signal, ki je brez šuma, lahko enostavno dekonvoluiramo preko relacije
+\begin{equation}
+u(t)= \mathcal{F}^{-1} \left( \frac{C(f)}{R(f)}\right).
+\end{equation}
+Rezultat je prikazan na sliki \ref{fig:slika9}.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{wiener1_prenosna_f.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \includegraphics[width=\textwidth]{wiener1_dekonvolucija.png}
+    \end{subfigure}
+    \caption{Prenosna funkcija levo in dekonvolucija desno.} \label{fig:slika9}
+\end{figure}
+\noindent Signal $u(t)$ je škatlast in sestoji iz štirih škatel, katerih amplituda pada, širina pa se veča. Opazimo tudi prisotnost ostrih robov, ki so posledica visokih frekvenc.
+
+V realnih primerih signala $S(f)$ ne poznamo. Zato je potrebno iz signala oceniti/uganiti šum in/ali signal. Oglejmo si najprej frekvenčni spekter, iz katerega lahko ocenimo povprečen prispevek šuma oz. njegove spektralne moči $|N(f)|^{2}$. Frekvenčni spekter je prikazan na sliki \ref{fig:slika10}. Na sliki smo ocenili $|N(f)|^{2}$ (šum) kot konstanten in je označen s horizontalno neprekinjeno črto. Prav tako smo ocenili $|S(f)|^{2}$ (signal) s funkcijo
+\begin{align*}
+|S(f)|^{2}=10^{4} (e^{-\frac{5}{16} t} + e^{-160 +\frac{5}{16} t})
+\end{align*}
+in je na sliki prikazan z rdečo prekinjeno črto.
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.7\textwidth]{wiener2_spekter.png}
+    \caption{Frekvenčni spekter za signale in ocene parametrov $|S(f)|^{2}$ in $|N(f)|^{2}$.} \label{fig:slika10}
+\end{figure}
+\noindent S tako parametrov $|S(f)|^{2}$ in $|N(f)|^{2}$, uporabimo formulo (\ref{eq:wiener_factor}) in dobimo Wienerjev filter $\Phi$ za dani signal. Grafični prikaz je prikazan na sliki \ref{fig:slika11}.
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.7\textwidth]{wiener2_filter.png}
+    \caption{Izračunan Wienerjev filter za različne signale.} \label{fig:slika11}
+\end{figure}
+
+\noindent Kot vidimo iz slike \ref{fig:slika11}, nam filter poreže visoke frekvence, obdrži pa nizke frekvence.
+
+Sedaj imamo vse sestavine, da poiščemo vpadni signal. Vpadni signal izračunamo po formuli
+\begin{equation}
+u(t)=\mathcal{F}^{-1}\left( \Phi(f) \frac{C(f)}{R(f)}\right).
+\end{equation}
+Rezultati so prikazani na sliki \ref{fig:slika12}.
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.8\textwidth]{wiener2_signal.png}
+    \caption{Vpadni signal.} \label{fig:slika12}
+\end{figure}
+
+\noindent Kljub temu, da so signali zašumljeni, smo uspešno rekonstruirali vpadni signal in lahko razberemo sestavo vpadnega signala. Utemeljili smo uporabo in uspešno definirali Wienerjev filter. 
+
+\section*{Lincolnova podoba}
+
+Naloga v tem delu je, očistiti Lincolnovo podobo, odbrano po stolpcih. Podatki so bili podani v datotekah \texttt{lincoln$\_$L30$\_$N$\left\lbrace \right.$0,1,2,3$ \left. \right\rbrace$.pgm}, dimenzije (313x256) pixlov. Prva datoteka je brez šuma, zadnje tri pa so s šumom. Šuma se bomo, kot v prejšnji nalogi, lotili z Wienerjevim filtrom. Podana je tudi prenosna funkcija
+\begin{equation} \label{eq:prenosna2}
+r(t)= \frac{1}{\tau} e^{-t/ \tau}, \qquad \tau=30 \ \ \textrm{in} \ \ t \ge 0.
+\end{equation}
+
+Tokratna prenosna funkcija se malenkost razlikuje od prenosne funkcije v prejšnjem poglavju, saj nam odreže negativne frekvence. Grafični prikaz prenosne funkcije (\ref{eq:prenosna2}) je prikazan na sliki \ref{fig:slika13}
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=0.7\textwidth]{Lincoln1_prenosna_f.png}
+    \caption{Prenosna funkcija (\ref{eq:prenosna2}).} \label{fig:slika13}
+\end{figure}
+
+Poglejmo si izvorne slike. Slike so prikazane na slikah \ref{fig:slika14}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{lincoln1_convert.png}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln2_convert.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln3_convert.png}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln4_conver.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln5_conver.png}
+    \end{subfigure}
+    \caption{Lincolnova podoba brez šuma in z vedno večjim šumom} \label{fig:slika14}
+\end{figure}
+\noindent Najbolj zgornja slika ne vsebuje šuma. Z dekonvolucijo takoj dobimo original. Pri ostalih slikah je pri dekonvoluciji potrebno upoštevati še Wienerjev filter. Rezultati so prikazani na slikah \ref{fig:slika15}.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[b]{0.4\textwidth}
+        \includegraphics[width=\textwidth]{lincoln1.png}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln2.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln3.png}
+    \end{subfigure}
+    
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln4.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{lincoln5.png}
+    \end{subfigure}
+    \caption{Rezultati filtriranja Lincolnove podobe.} \label{fig:slika15}
+\end{figure}
+
+\noindent Za filter smo vzeli zelo podobni funkciji $|S(f)|^{2}$ in $|N(f)|^{2}$, in sicer:
+\begin{align*}
+1)& \ \ |S(f)|^{2}=10^{4} (e^{-\frac{5}{16} t} + e^{-80 +\frac{5}{16} t}) \qquad & & |N(f)|^{2}= 10^{-2} \\
+ 2)& \ \ |S(f)|^{2}= 10^{6} (e^{-\frac{5}{16} t} + e^{-80 +\frac{5}{16} t}) \qquad & & |N(f)|^{2}= 10^{2}\\
+3)& \ \ |S(f)|^{2}=4 \cdot 10^{6} (e^{-\frac{5}{16} t} + e^{-80 +\frac{5}{16} t}) \qquad & & |N(f)|^{2}= 10^{4} \\
+4)& \ \ |S(f)|^{2}= 10^{7} (e^{-\frac{5}{16} t} + e^{-80 +\frac{5}{16} t}) \qquad & & |N(f)|^{2}= 10^{5.5}.
+\end{align*}
+Iz znane relacije (\ref{eq:wiener_factor}) smo dobili naš filter. Grafični prikaz filtra je prikazan na sliki \ref{fig:slika16}.
+Parametre filtra smo seveda določili po občutku, glede na izgled dobljene slike.
+
+\begin{figure}[H]
+    \centering
+        \includegraphics[width=\textwidth]{lincoln_filter.png}
+    \caption{Filter za izbrane slike} \label{fig:slika16}
+\end{figure}
+
+Kot vidimo smo filter nastavili tako, da nam pri močno zašumljenih sikah hitro odreže visoke frekvence. Pri manj zašumljenih slikah smo dovolili višje frekvence.
+
+
+\end{document}
