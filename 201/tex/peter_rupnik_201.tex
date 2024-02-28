@@ -1,0 +1,121 @@
+
+\documentclass[a4paper,oneside,12pt]{article}
+
+\usepackage[utf8]{inputenc}    % make čšž work on input
+\usepackage[T1]{fontenc}       % make čšž work on output
+\usepackage[slovene]{babel}    % slovenian language and hyphenation
+\usepackage[reqno]{amsmath}    % basic math
+\usepackage{amssymb,amsthm}    % math symbols and theorem environments
+\usepackage{graphicx}          % images
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[
+  paper=a4paper,
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm
+% textheight=24cm,
+]{geometry}  % page geomerty
+
+% vstavi svoje pakete tukaj
+\usepackage{fancyhdr}
+\usepackage{harpoon}
+\usepackage{tikz}
+\usepackage{makeidx}
+\makeindex
+\usepackage[all]{xy}
+\usepackage{minted}
+  % algorithms
+  % \RequirePackage{algpseudocode}  % za psevdokodo
+  % \RequirePackage{algorithm}      % za plovke
+  % \floatname{algorithm}{Algoritem}
+  % \renewcommand{\listalgorithmname}{Kazalo algoritmov}
+
+
+
+% clickable references, pdf toc
+\usepackage[bookmarks, colorlinks=true, linkcolor=black, anchorcolor=black,
+  citecolor=black, filecolor=black, menucolor=black, runcolor=black,
+  urlcolor=black, pdfencoding=unicode]{hyperref}
+
+
+
+% stavi lastne definicije tukaj
+% \newcommand{\dpar}[2]{\frac{\partial #1}{\partial #2}}
+% \newcommand{\HH}{$\mathcal{H}$}
+% \newcommand{\LL}{$\vec{\ell}$}
+% \newcommand{\AA}{$\vec{{A}}$}
+  % \floatname{listing}{Koda}
+  % \renewcommand{\listalgorithmname}{Kazalo programske kode}
+% \pagestyle{empty}              % vse strani prazne (ni okraskov, številčenja....)
+ \setlength{\parindent}{0pt}    % zamik vsakega odstavka
+% \setlength{\parskip}{10pt}     % prazen prostor pod odstavkom
+%\setlength{\overfullrule}{30pt}  % oznaci predlogo vrstico z veliko črnine
+\frenchspacing % to se priporoča, da bo presledek za piko na koncu stavka enako dolg kot obični.
+%Alternativa je ročno metanje \ za vsako okrajšavo.
+\usepackage{braket}
+\usepackage{todonotes}
+\hypersetup{pdftitle={201: Navadne diferencialne enačbe: začetni problemi}, pdfauthor={Peter Rupnik}} %To piše v pdf viewerju na vrhu! veri neat
+\title{201: Navadne diferencialne enačbe: začetni problemi}
+\author{Peter Rupnik}
+\begin{document}
+\maketitle
+\section{Naloga}
+\begin{enumerate}
+
+\item S pomočjo podprogramov za metodo Runge-Kutta zasleduj gibanje
+  planeta na tiru okrog sonca. Opazuj stabilnost razdalje obeh teles
+  pri krožnem gibanju. Preveri točnost obhodnega časa ter  
+  natančnost povratka pri eliptičnih tirih, zlasti pri tistih z majhno
+  začetno hitrostjo. Opazuj stalnost energije in vrtilne količine.
+
+\item Razišči obnašanje planeta v krožni orbiti,
+  če sonce nadomestite s parom polovičnih sonc,
+  v odvisnosti od njune medsebojne razdalje.
+  Sonci sta v krožni orbiti okrog skupnega težišča, vpliv planeta na njuno
+  orbito zanemarimo.
+
+\item Trk zvezde in planetnega sistema: mimo sonca s planetom na
+  krožnem tiru pridrvi v tirni ravnini druga zvezda z enako
+  maso. Mimobežna zvezda vpada s hitrostjo, ki je enaka dvakratni
+  obodni hitrosti planeta in potuje po ravni črti v razdalji 1.5
+  radija planetnega tira (nalogo smo poenostavili z zanemaritvijo
+  keplerskega tira prihajajoče zvezde).  Razišči končno usodo planeta
+  v odvisnosti od njegove faze. Račun začnemo, ko je vpadna zvezda še
+  10 radijev planetnega tira daleč od svojega perihelija in ga
+  končamo, ko se znajde v točki, ki je simetrična na začetno. Kaj se
+  spremeni, če smer gibanja planeta obrnemo?
+
+  
+\end{enumerate}
+
+\input{solution}
+
+\end{document}
+
+\begin{center}
+     \includegraphics[width=0.7\textwidth]{}
+\end{center}
+\begin{figure}
+    \centering
+        \begin{minipage}{0.45\textwidth}
+        \centering
+    \includegraphics[width=\textwidth]{}
+    \caption{} 
+        \label{fig:}
+    \end{minipage}\hfill
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{}
+    \caption{}
+    \label{fig:}
+    \end{minipage}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\textwidth]{}
+    \caption{Caption}
+    \label{fig:my_label}
+\end{figure}
