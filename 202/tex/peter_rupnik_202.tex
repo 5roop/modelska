@@ -1,0 +1,71 @@
+
+\documentclass[a4paper,oneside,12pt]{article}
+
+\usepackage[utf8]{inputenc}    % make čšž work on input
+\usepackage[T1]{fontenc}       % make čšž work on output
+\usepackage[slovene]{babel}    % slovenian language and hyphenation
+\usepackage[reqno]{amsmath}    % basic math
+\usepackage{amssymb,amsthm}    % math symbols and theorem environments
+\usepackage{graphicx}          % images
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[
+  paper=a4paper,
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm
+% textheight=24cm,
+]{geometry}  % page geomerty
+
+% vstavi svoje pakete tukaj
+\usepackage{fancyhdr}
+\usepackage{harpoon}
+\usepackage{tikz}
+\usepackage{makeidx}
+\makeindex
+\usepackage[all]{xy}
+\usepackage{minted}
+  % algorithms
+  % \RequirePackage{algpseudocode}  % za psevdokodo
+  % \RequirePackage{algorithm}      % za plovke
+  % \floatname{algorithm}{Algoritem}
+  % \renewcommand{\listalgorithmname}{Kazalo algoritmov}
+
+
+
+% clickable references, pdf toc
+\usepackage[bookmarks, colorlinks=true, linkcolor=black, anchorcolor=black,
+  citecolor=black, filecolor=black, menucolor=black, runcolor=black,
+  urlcolor=black, pdfencoding=unicode]{hyperref}
+
+
+
+% stavi lastne definicije tukaj
+\newcommand{\dpar}[2]{\frac{\partial #1}{\partial #2}}
+% \newcommand{\HH}{$\mathcal{H}$}
+% \newcommand{\LL}{$\vec{\ell}$}
+% \newcommand{\AA}{$\vec{{A}}$}
+  % \floatname{listing}{Koda}
+  % \renewcommand{\listalgorithmname}{Kazalo programske kode}
+% \pagestyle{empty}              % vse strani prazne (ni okraskov, številčenja....)
+ \setlength{\parindent}{0pt}    % zamik vsakega odstavka
+\setlength{\parskip}{10pt}     % prazen prostor pod odstavkom
+%\setlength{\overfullrule}{30pt}  % oznaci predlogo vrstico z veliko črnine
+\frenchspacing % to se priporoča, da bo presledek za piko na koncu stavka enako dolg kot obični.
+%Alternativa je ročno metanje \ za vsako okrajšavo.
+\usepackage{braket}
+\usepackage{todonotes}
+\hypersetup{pdftitle={202: Navadne diferencialne enačbe: robni problemi}, pdfauthor={Peter Rupnik}} %To piše v pdf viewerju na vrhu! veri neat
+\title{202: Navadne diferencialne enačbe: robni problemi}
+\author{Peter Rupnik\\28182021}
+\begin{document}
+\maketitle
+\input{naloge.tex}
+\section{1. naloga}
+\input{prva}
+\clearpage
+\section{2. naloga}
+\input{druga}
+\end{document}

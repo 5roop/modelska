@@ -1,0 +1,36 @@
+\begin{enumerate}
+\item Izračunaj obliko vrvi, ki je obešena v dveh točkah na vrteči se
+  navpični osi. Znan sistem
+\begin{align*}
+\dpar{}{s}\left(F\dpar{x}{s}\right)+\rho\omega^2x&=0\\
+\dpar{}{s}\left(F\dpar{y}{s}\right)-\rho g&=0\\
+\left(\dpar{x}{s}\right)^2+\left(\dpar{y}{s}\right)^2&=1
+\end{align*}
+%
+pretvorimo s substitucijami $s\to s/l$, $x\to x/l$, $y\to y/l$, $F\to
+F/\rho g l$, $\dpard x/\dpard s=\cos\alpha$, $\dpard y/\dpard s=\sin\alpha$, $\beta=\omega^2
+l/g$, če je $l$ dolžina vrvi, v sistem
+%
+\begin{alignat*}{2}
+\dpar{F}{s}&=-\beta x\cos\alpha+\sin\alpha&\qquad\qquad
+\dpar{x}{s}&=\cos\alpha\\
+F\dpar{\alpha}{s}&=\beta x\sin\alpha+\cos\alpha&\qquad\qquad
+\dpar{y}{s}&=\sin\alpha
+\end{alignat*}
+%
+Zanj poznamo koordinate enega obesišča $(0,0)$ in bi radi zadeli drugo
+obesišče, pri čemer pa ne poznamo začetnega naklona vrvi $\alpha(0)$
+in sile v pritrdišču $F(0)$. Razišči mnogoterost dobljenih rešitev.
+
+\item Pri študiju gibanja zvezd skozi galaksijo sta H\'enon in Heiles
+  vpeljala 3-števno simetrični potencial
+  \begin{equation*}
+    U(x,y)=\thalf\left(x^2+y^2\right)+x^2y-\tfrac13 y^3.
+  \end{equation*}
+  Za energije $E<\frac16$ je gibanje omejeno znotraj enakostraničnega trikotnika.
+  V odvisnosti od energije in začetnih pogojev je gibanje periodično, kvaziperiodično ali kaotično.
+  
+  S strelsko metodo določi periodične tire pri različnih energijah.
+  Zaradi simetrije lahko začetni pogoj omejiš na daljico med izhodiščem in točko $(0,1)$.
+  Poskusi najti količine, s pomočjo katerih lahko tire razporediš v razrede -- na primer obhodno število.
+\end{enumerate}
