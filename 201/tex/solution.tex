@@ -10,17 +10,16 @@ Najprej se uverim, da lahko iz začetnih pogojev pravilno integriram časovni ra
     \end{cases}
 \]
 
-Za \(v_0 \in \left{ 1, \sqrt{2}, 1.5, 0.5, 0.3 \right}\) sem izračunal trajektorije v časovnem intervalu $ t\in\left[ 0, 10\right] $ z adaptivnim časovnim korakom z metodo \texttt{scipy.integrate.solve\_ivp}.
+Za \(v_0 \in \{ 1, \sqrt{2}, 1.5, 0.5, 0.3 \}\) sem izračunal trajektorije v časovnem intervalu $ t\in\left[ 0, 10\right] $ z adaptivnim časovnim korakom z metodo \texttt{scipy.integrate.solve\_ivp}.
 
 \begin{center}
     \centering
     \includegraphics[width=0.5\textwidth]{../images/1-1-v0.pdf}
 \end{center}
 
-Naslednji korak je študija invariantnih količin. Zanimalo nas bo spreminjanje polne energije $H$, vrtilne količine $\mathbf{L}$,  in Laplace-Runge-Lenzovega vektorja $\mathbf{A}$ skozi čas za različne začetne pogoje. Rezultate prikazujem na sliki~\ref{fig:1-1-energija}.
+Naslednji korak je študija invariantnih količin. Zanimalo nas bo spreminjanje polne energije $H$, vrtilne količine $\mathbf{L}$,  in Laplace-Runge-Lenzovega vektorja $\mathbf{A}$ skozi čas za različne začetne pogoje. Rezultate prikazujem na sliki~1.
 
 \begin{figure}
-    \label{fig:1-1-energija}
     \centering
     \begin{subfigure}{0.49\textwidth}
         \includegraphics[width=\textwidth]{../images/1-1-H_lin.pdf}
@@ -47,7 +46,7 @@ Naslednji korak je študija invariantnih količin. Zanimalo nas bo spreminjanje 
         \includegraphics[width=\textwidth]{../images/1-1-A_log.pdf}
     \end{subfigure}
     \caption{Časovni poteki invariantnih količin. V vseh primerih se količine najlepše obnašajo za krožno orbito. Polna energija $H$ je najbolj nestabilna.}
-
+    
 \end{figure}
 
 Za študijo stabilnosti obhodnih časov sem implementiral \texttt{event tracker}, funkcijo, katere koren bo integrator iskal. Pri tem sem se posvetil primerom, ko $v_0<\sqrt{2}$, da zagotovim periodičnost orbit. Uporabljena je bila sledeča metodologija: za vsak $v_0$ sem iskal orbito za $t\in \left(0, 21\pi \right)$, pri čemer mi je prehode čez $y=0$ iskal integrator sam.  Dobljene čase prehoda sem numerično odvajal, da dobim čase med zaporednimi prehodi, nato pa sem izračunal povprečno periodo in standardno deviacijo. Rezultate prikazujem na naslednji sliki.
