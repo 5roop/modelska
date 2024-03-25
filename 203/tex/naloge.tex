@@ -1,0 +1,64 @@
+
+\begin{enumerate}
+
+    \item Razišči najugodnejši postopek za reševanje radialnega dela
+      Schrödingerjeve enačbe s Coulombskim potencialom. Za vodikov atom
+      ima enačba obliko
+    %
+    \begin{equation*}
+    \left[-\frac{\mathrm{d}^2}{\mathrm{d}x^2}-\frac{2}{x}+\frac{\ell(\ell+1)}{x^2}-e\right]R(x)=0,
+    \qquad R(0)=0,\quad R(\infty)=0
+    \end{equation*}
+    %
+    če je $\Psi(x)=R(x)/x$, $x=r/a$, $e=E/E_0$, $a$ je Bohrov radij in
+    $E_0=\SI{13.6}{eV}$.
+
+    Uporabiš lahko metodo Runge-Kutta, še boljša pa je metoda {\sl
+      Numerova}, ki jo priporočajo za ta tip problemov in je za red boljša
+    od Runge-Kutta 4.~reda. Pri tej metodi enačbo
+    %
+    \begin{equation*}
+    \left[\frac{\mathrm{d}^2}{\mathrm{d}x^2}+k^2(x)\right]y(x)=0
+    \end{equation*}
+    %
+    zapišemo kot
+    %
+    \begin{equation*}
+    \left(1+\frac{h^2}{12}k^2_{i+1}\right)y_{i+1}-
+    2\left(1-\frac{5h^2}{12}k^2_i\right)y_i+
+    \left(1+\frac{h^2}{12}k^2_{i-1}\right)y_{i-1}=0+{\cal O}(h^6)
+    \end{equation*}
+
+    Natančnost metod lahko preveriš s točnimi (nenormaliziranimi)
+    lastnimi funkcijami
+    %
+    \begin{align*}
+    R_{n=1,\ell=0}(x)&=xe^{-x}\\
+    R_{20}(x)&=x(1-\tfrac{1}{2}x)e^{-x/2}\\
+    R_{21}(x)&=x^2e^{-x/2}
+    \end{align*}
+
+    \item Za propagacijo monokromatske svetlobe v snovi velja Helmholtzova
+      enačba, ki se v brezdimenzijski obliki glasi
+      \begin{equation*}
+        (\nabla^2+n({r})^2k^2)\Psi({r})=0.
+      \end{equation*}
+    Pri tem je $n({r})$ lomni količnik, $k$ pa brezdimenzijsko valovno
+    število. Pri iskanju lastnih načinov valovanja v svetlobnih vlaknih
+    uporabimo nastavek $\Psi(x)=(R(x)/\sqrt{x}) e^{i \lambda z}$. Za
+    radialno simetrična stanja dobimo enačbo
+      \begin{equation*}
+        \left[\Dd[2]{}{x}+\frac{1}{4x^2}+n(x)^2 k^2-\lambda^2\right]R(x)=0.
+      \end{equation*}
+    To enačbo lahko rešujemo z metodo {\sl Numerova}, pri čemer vzdolžno valovno
+    število $\lambda$ igra vlogo lastne vrednosti.
+
+    Za profil lomnega količnika
+    \begin{equation*}
+      n(x)=\begin{cases}2-\frac12x^2 & x<1\\ 1 & x\geq 1\end{cases}
+    \end{equation*}
+    izračunaj disperzijsko relacijo $\lambda(k)$ za $0.8<k<10$ in ugotovi,
+    pri katerih valovnih številih $k$ obstaja samo eno vezano stanje
+    (t.i.~\emph{single mode fiber}).
+
+    \end{enumerate}

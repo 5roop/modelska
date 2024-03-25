@@ -1,0 +1,76 @@
+
+\documentclass[a4paper,oneside,12pt]{article}
+
+\usepackage[utf8]{inputenc}    % make čšž work on input
+\usepackage[T1]{fontenc}       % make čšž work on output
+\usepackage[slovene]{babel}    % slovenian language and hyphenation
+\usepackage[reqno]{amsmath}    % basic math
+\usepackage{amssymb,amsthm}    % math symbols and theorem environments
+\usepackage{graphicx}          % images
+\usepackage{enumerate}
+\usepackage{physics}
+\usepackage[
+  paper=a4paper,
+  top=2.5cm,
+  bottom=2.5cm,
+  left=2.5cm,
+  right=2.5cm
+% textheight=24cm,
+]{geometry}  % page geomerty
+
+% vstavi svoje pakete tukaj
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{makeidx}
+\makeindex
+\usepackage[all]{xy}
+\usepackage{pythonhighlight}
+% \usepackage{minted}
+  % algorithms
+%   \RequirePackage{algpseudocode}  % za psevdokodo
+%   \RequirePackage{algorithm}      % za plovke
+%   \floatname{algorithm}{Algoritem}
+%   \renewcommand{\listalgorithmname}{Kazalo algoritmov}
+%  \algnewcommand\algorithmicto{\textbf{to}}
+%  \algnewcommand\algorithmicin{\textbf{in}}
+%  \algnewcommand\algorithmicforeach{\textbf{for each}}
+%  \algrenewtext{For}[3]{\algorithmicfor\ #1 $\gets$ #2\ \algorithmicto\ #3\ \algorithmicdo}
+%\algdef{S}[FOR]{ForEach}[2]{\algorithmicforeach\ #1\ \algorithmicin\ #2\ \algorithmicdo}
+
+
+% clickable references, pdf toc
+\usepackage[bookmarks, colorlinks=true, linkcolor=black, anchorcolor=black,
+  citecolor=black, filecolor=black, menucolor=black, runcolor=black,
+  urlcolor=black, pdfencoding=unicode]{hyperref}
+
+\setlength{\parindent}{0pt}    % zamik vsakega odstavka
+\setlength{\parskip}{10pt}     % prazen prostor pod odstavkom
+% lastne definicije
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\renewcommand{\C}{\ensuremath{\mathbb{C}}}
+% stavi lastne definicije tukaj
+%   \floatname{listing}{Koda}
+%   \renewcommand{\listalgorithmname}{Kazalo programske kode}
+% \pagestyle{empty}              % vse strani prazne (ni okraskov, številčenja....)
+% \setlength{\parindent}{0pt}    % zamik vsakega odstavka
+% \setlength{\parskip}{10pt}     % prazen prostor pod odstavkom
+%\setlength{\overfullrule}{30pt}  % oznaci predlogo vrstico z veliko črnine
+\frenchspacing % to se priporoča, da bo presledek za piko na koncu stavka enako dolg kot obični.
+%Alternativa je ročno metanje \ za vsako okrajšavo.
+\newcommand{\dpar}[2]{\frac{\partial #1}{\partial #2}}
+\newcommand{\td}[2]{\frac{\mathrm{d}{ #1}}{\mathrm{d}{ #2}}}
+\hypersetup{pdftitle={Modelska 205}, pdfauthor={Peter Rupnik}} %To piše v pdf viewerju na vrhu! veri neat
+\title{205: Parcialne diferencialne enačbe: robni problemi in relaksacija}
+\author{Peter Rupnik}
+\def\thesection{\arabic{section}. naloga}
+\def\thesubsection{\arabic{section}.\arabic{subsection}}
+\begin{document}
+\maketitle
+\input{naloge}
+\section{}
+\input{prva}
+\section{}
+\end{document}

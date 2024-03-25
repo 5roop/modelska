@@ -1,0 +1,26 @@
+Metoda pospešene relaksacije (SOR - Successive Over-Relaxation) je iterativna metoda, ki nadgradi Jacobijev in Gauss-Seidlov postopek tako, da poveča iteracijski korak za faktor $1 \leq \omega<2$ :
+$$
+u_{i}^{(n+1)}=u_{i}^{(n)}+\omega\left(\tilde{u}_{i}^{(n)}-u_{i}^{(n)}\right)
+$$
+kjer je $\tilde{u}_{i}^{(n)}$ korak običajne Jacobijeve ali Gauss-Seidlove iteracije, in je za Poissonovo enačbo $\nabla^{2} u=q$ na ekvidistančni kartezični mreži $\mathrm{v} 2 \mathrm{D}$ enak $\tilde{u}_{i}=\frac{1}{4}\left(\sum_{j \in \text { soseedi }} u_{j}-q_{i} \Delta x^{2}\right) .$ Po zgledu Gauss-Seidlovega postopka sta dva soseda že popravljena, dva pa se iz prejšnje iteracije. Optimalna izbira faktorja pospešitve $\omega$ je odvisna od spektralnega radija iteracijske matrike $\rho_{\text {Jacobi }}$,
+$$
+\omega=\frac{2}{1+\sqrt{1-\rho_{\text {Jacobi }}^{2}}} \quad \text { ali približno } \quad \omega=\frac{2}{1+\frac{\pi}{N}}
+$$
+kjer je $N$ število tock po enem robu. Ta ocena za $\omega$ velja za poln kvadrat; pri drugačnih oblikah dobis boljso oceno z nastavkom:
+$$
+\omega=\frac{2}{1+\alpha \frac{\pi}{N}}
+$$
+Še boljša je metoda Čebiševega pospeška, pri kateri zgornji iteracijski postopek simetriziramo tako, da ga izvajamo izmenično po zgolj belih in zgolj črnih poljih šahovnice, tako da so vsi sosedi iz iste politeracije. Na vsake pol iteracije popravimo vrednost faktorja $\omega$ po postopku, ki asimptotično konvergira k zgornji vrednosti:
+$$
+\omega^{(0)}=1, \quad \omega^{(1 / 2)}=\frac{1}{1-\frac{1}{2} \rho_{J_{\text {acobi }}^{2}}}, \quad \omega^{(n+1 / 2)}=\frac{1}{1-\frac{1}{4} \rho_{\text {Jacobi }}^{2} \omega^{(n)}}
+$$
+
+\begin{enumerate}
+    \item
+Z metodo pospešene relaksacije (SOR) določi Poiseuillov koeficient za pretok viskozne tekočine po cevi s prerezom, podanim s spodnjo shemo. Pazi na pravilno obravnavo primerov, ko je rob točno na mrežni točki in ko je rob med sosednjima točkama.
+Poišči optimalno vrednost parametra $\alpha$. Preveri tudi uspešnost Čebisevega pospeška k relaksaciji.
+\item
+Enakostraničen kovinski valj $(2 r=h)$ grejemo na spodnji ploskvi s konstantnim toplotnim tokom, plašč prerežemo horizontalno na dve enako široki polovici pri različnih temperaturah, zgornjo ploskev pa držimo na isti temperaturi kot spodnjo polovico plašča.
+Določi temperaturni profil!
+Kaj pa, če zgornjo polovico plašča toplotno izoliramo?
+\end{enumerate}

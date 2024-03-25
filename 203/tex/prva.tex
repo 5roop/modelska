@@ -1,0 +1,9 @@
+Nalogo bom poskušal reševati z metodo Numerova. Za inicializatijo iterativne sheme potrebujem $y_0$ in $y_1$. Četudi lahko za $y_0$ uporabnim robni pogoj $R\left(x=0\right) = 0$, bi moral naslednjo točko streljati. Zagati se lahko izognemo, če $y$ zapišemo kot potenčno vrsto:
+
+\begin{equation*}
+    y = a_0 + a_1 x + a_2 x^2 + \cdots
+\end{equation*}
+Drugi odvod lahko aproksimiramo z
+\begin{equation*}
+    y_i'' = \frac{y_{i+1} + y_{i-1} - 2 y_i}{h^2} + \mathcal{O} (h^2)
+\end{equation*}
